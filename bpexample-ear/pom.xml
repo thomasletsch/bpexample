@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.thomas_letsch</groupId>
+		<artifactId>bpexample</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<groupId>de.thomas_letsch</groupId>
+	<artifactId>bpexample-ear</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>ear</packaging>
+	<name>bpexample - EAR</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jboss.seam</groupId>
+			<artifactId>jboss-seam</artifactId>
+			<type>ejb</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>testng</artifactId>
+					<groupId>org.testng</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jboss-el</artifactId>
+					<groupId>org.jboss.el</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.richfaces.core</groupId>
+			<artifactId>richfaces-core-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.el</groupId>
+			<artifactId>jboss-el</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.el</groupId>
+					<artifactId>el-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+		<!-- Application modules -->
+		<dependency>
+			<groupId>de.thomas_letsch</groupId>
+			<artifactId>bpexample-war</artifactId>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>de.thomas_letsch</groupId>
+			<artifactId>bpexample-war</artifactId>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>de.thomas_letsch</groupId>
+			<artifactId>bpexample-datamodel</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>de.thomas_letsch</groupId>
+			<artifactId>bpexample-bootstrap</artifactId>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>de.thomas_letsch</groupId>
+			<artifactId>bpexample-ejb</artifactId>
+			<type>ejb</type>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>bpexample-ear</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<defaultJavaBundleDir>lib/</defaultJavaBundleDir>
+					<version>6</version>
+					<modules>
+						<webModule>
+							<groupId>de.thomas_letsch</groupId>
+							<artifactId>bpexample-war</artifactId>
+							<contextRoot>bpexample</contextRoot>
+							<unpack>${exploded.war.file}</unpack>
+							<bundleFileName>bpexample-war.war</bundleFileName>
+						</webModule>
+
+						<ejbModule>
+							<groupId>de.thomas_letsch</groupId>
+							<artifactId>bpexample-bootstrap</artifactId>
+							<excluded>${exclude.bootstrap}</excluded>
+							<bundleFileName>bpexample-bootstrap.jar</bundleFileName>
+						</ejbModule>
+
+						<ejbModule>
+							<groupId>de.thomas_letsch</groupId>
+							<artifactId>bpexample-ejb</artifactId>
+							<bundleFileName>bpexample-ejb.jar</bundleFileName>
+						</ejbModule>
+
+
+						<ejbModule>
+							<groupId>org.jboss.seam</groupId>
+							<artifactId>jboss-seam</artifactId>
+						</ejbModule>
+
+					</modules>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${basedir}/target</outputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+	</build>
+</project>

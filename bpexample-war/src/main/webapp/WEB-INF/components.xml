@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.org/schema/seam/components"
+	xmlns:core="http://jboss.org/schema/seam/core"
+	xmlns:persistence="http://jboss.org/schema/seam/persistence"
+	xmlns:security="http://jboss.org/schema/seam/security"
+	xmlns:transaction="http://jboss.org/schema/seam/transaction"
+	xmlns:mail="http://jboss.org/schema/seam/mail"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.org/schema/seam/core http://jboss.org/schema/seam/core-2.3.xsd
+                http://jboss.org/schema/seam/framework http://jboss.org/schema/seam/transaction-2.3.xsd
+                 http://jboss.org/schema/seam/bpm http://jboss.org/schema/seam/bpm-2.3.xsd
+                 http://jboss.org/schema/seam/persistence http://jboss.org/schema/seam/persistence-2.3.xsd
+                 http://jboss.org/schema/seam/security http://jboss.org/schema/seam/security-2.3.xsd
+                 http://jboss.org/schema/seam/components http://jboss.org/schema/seam/components-2.3.xsd">
+
+	<component name="org.jboss.seam.core.init">
+		<property name="debug">true</property>
+	</component>
+	
+	<component class="org.jboss.seam.transaction.EjbSynchronizations" jndi-name="java:app/jboss-seam-${version.seam}/EjbSynchronizations"/>
+	<component class="org.jboss.seam.async.TimerServiceDispatcher" jndi-name="java:app/jboss-seam-${version.seam}/TimerServiceDispatcher"/>
+
+	<core:manager concurrent-request-timeout="500"
+		conversation-id-parameter="cid" conversation-timeout="120000" />
+
+	<transaction:ejb-transaction />
+
+	<persistence:managed-persistence-context
+		auto-create="true" name="entityManager" persistence-unit-jndi-name="java:/bpexample-EntityManagerFactory" />
+
+	<security:identity authenticate-method="#{authenticator.authenticate}" />
+
+	<mail:mail-session host="localhost" password="test" port="2525" username="test" />
+</components>
