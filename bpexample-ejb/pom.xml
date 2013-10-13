@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
 		<artifactId>bpexample</artifactId>
@@ -10,8 +11,6 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>bpexample-ejb</artifactId>
-	<version>1.0-SNAPSHOT</version>
-
 	<packaging>ejb</packaging>
 	<name>bpexample - EJB</name>
 
@@ -22,6 +21,13 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+		</plugins>
 	</build>
 
 	<dependencies>
@@ -33,6 +39,12 @@
 		<dependency>
 			<groupId>org.jboss.seam</groupId>
 			<artifactId>jboss-seam</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>testng</artifactId>
+					<groupId>org.testng</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

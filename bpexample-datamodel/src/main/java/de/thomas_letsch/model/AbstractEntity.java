@@ -19,7 +19,7 @@ public abstract class AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final Long id = null;
+	private Long id = null;
 
 	@Version
 	@Column(nullable = false)
