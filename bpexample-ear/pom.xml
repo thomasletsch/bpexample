@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>de.thomas_letsch</groupId>
 		<artifactId>bpexample</artifactId>
-		<version>1.0.3</version>
+		<version>1.0.4</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<groupId>de.thomas_letsch</groupId>
 	<artifactId>bpexample-ear</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<packaging>ear</packaging>
 	<name>bpexample - EAR</name>
 
