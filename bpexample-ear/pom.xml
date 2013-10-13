@@ -10,9 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>de.thomas_letsch</groupId>
 	<artifactId>bpexample-ear</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<packaging>ear</packaging>
 	<name>bpexample - EAR</name>
 
@@ -128,6 +126,24 @@
 					<outputDirectory>${basedir}/target</outputDirectory>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>1.4.4</version>
+				<configuration>
+					<container>
+						<containerId>jboss72x</containerId>
+						<home>${jboss.home}</home>
+						<type>installed</type>
+					</container>
+					<configuration>
+						<type>existing</type>
+						<home>${jboss.home}/standalone</home>
+					</configuration>
+				</configuration>
+			</plugin>
+
 		</plugins>
 
 		<resources>
@@ -137,4 +153,31 @@
 			</resource>
 		</resources>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>ff-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-ff</jboss.home>
+			</properties>
+		</profile>
+		<profile>
+			<id>regression-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-regression</jboss.home>
+			</properties>
+		</profile>
+		<profile>
+			<id>int-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-int</jboss.home>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-prod</jboss.home>
+			</properties>
+		</profile>
+	</profiles>
 </project>
