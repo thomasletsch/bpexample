@@ -126,25 +126,28 @@
 					<outputDirectory>${basedir}/target</outputDirectory>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.cargo</groupId>
-				<artifactId>cargo-maven2-plugin</artifactId>
-				<version>1.4.4</version>
-				<configuration>
-					<container>
-						<containerId>jboss72x</containerId>
-						<home>${jboss.home}</home>
-						<type>installed</type>
-					</container>
-					<configuration>
-						<type>existing</type>
-						<home>${jboss.home}/standalone</home>
-					</configuration>
-				</configuration>
-			</plugin>
-
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>1.4.4</version>
+					<configuration>
+						<container>
+							<containerId>jboss72x</containerId>
+							<home>${jboss.home}</home>
+							<type>installed</type>
+						</container>
+						<configuration>
+							<type>existing</type>
+							<home>${jboss.home}/standalone</home>
+						</configuration>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 
 		<resources>
 			<resource>
@@ -164,7 +167,7 @@
 		<profile>
 			<id>regression-stage</id>
 			<properties>
-				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-regression</jboss.home>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-test</jboss.home>
 			</properties>
 		</profile>
 		<profile>
