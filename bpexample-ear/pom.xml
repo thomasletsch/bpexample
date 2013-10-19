@@ -157,30 +157,4 @@
 		</resources>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>ff-stage</id>
-			<properties>
-				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-ff</jboss.home>
-			</properties>
-		</profile>
-		<profile>
-			<id>regression-stage</id>
-			<properties>
-				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-test</jboss.home>
-			</properties>
-		</profile>
-		<profile>
-			<id>int-stage</id>
-			<properties>
-				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-int</jboss.home>
-			</properties>
-		</profile>
-		<profile>
-			<id>prod-stage</id>
-			<properties>
-				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-prod</jboss.home>
-			</properties>
-		</profile>
-	</profiles>
 </project>

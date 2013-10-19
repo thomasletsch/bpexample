@@ -14,23 +14,15 @@
 		<version.richfaces>4.2.2.Final</version.richfaces>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javaee6.web.spec.version>3.0.1.Final</javaee6.web.spec.version>
-		<skipITs>true</skipITs>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>jboss-public-repository-group</id>
-			<name>JBoss Public Maven Repository Group</name>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-			<layout>default</layout>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<updatePolicy>never</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
+	<modules>
+		<module>bpexample-datamodel</module>
+		<module>bpexample-bootstrap</module>
+		<module>bpexample-ejb</module>
+		<module>bpexample-war</module>
+		<module>bpexample-ear</module>
+	</modules>
 
 	<!-- test scope dependency -->
 	<dependencies>
@@ -130,10 +122,19 @@
 				</plugin>
 
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.12</version>
+					<version>2.16</version>
+					<executions>
+						<execution>
+							<id>test</id>
+							<goals>
+								<goal>test</goal>
+							</goals>
+						</execution>
+					</executions>
 					<configuration>
-						<argLine>-enableassertions</argLine>
+						<skipTests>${skipTests}</skipTests>
 					</configuration>
 				</plugin>
 
@@ -152,9 +153,10 @@
 					</executions>
 					<configuration>
 						<skipITs>${skipITs}</skipITs>
+						<skipTests>${skipITs}</skipTests>
 					</configuration>
 				</plugin>
-
+				
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>2.6</version>
@@ -248,13 +250,92 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-
 	</dependencyManagement>
-	<modules>
-		<module>bpexample-datamodel</module>
-		<module>bpexample-bootstrap</module>
-		<module>bpexample-ejb</module>
-		<module>bpexample-war</module>
-		<module>bpexample-ear</module>
-	</modules>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-ff</jboss.home>
+				<skipITs>true</skipITs>
+				<skipTests>false</skipTests>
+			</properties>
+		</profile>
+		<profile>
+			<id>ff-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-ff</jboss.home>
+				<skipITs>false</skipITs>
+				<skipTests>true</skipTests>
+			</properties>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-failsafe-plugin</artifactId>
+							<configuration>
+								<groups>de.thomas_letsch.utils.FastFeedbackTest</groups>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		<profile>
+			<id>regression-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-test</jboss.home>
+				<skipITs>false</skipITs>
+				<skipTests>true</skipTests>
+			</properties>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-failsafe-plugin</artifactId>
+							<configuration>
+								<groups>de.thomas_letsch.utils.RegressionTest</groups>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		<profile>
+			<id>int-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-int</jboss.home>
+				<skipITs>false</skipITs>
+				<skipTests>true</skipTests>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-prod</jboss.home>
+			</properties>
+		</profile>
+	</profiles>
+
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+
 </project>
