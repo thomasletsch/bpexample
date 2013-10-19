@@ -288,7 +288,7 @@
 		<profile>
 			<id>regression-stage</id>
 			<properties>
-				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-test</jboss.home>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-regression</jboss.home>
 				<skipITs>false</skipITs>
 				<skipTests>true</skipTests>
 			</properties>
@@ -305,6 +305,14 @@
 					</plugins>
 				</pluginManagement>
 			</build>
+		</profile>
+		<profile>
+			<id>test-stage</id>
+			<properties>
+				<jboss.home>/opt/tools/server/jboss-eap-6.1-bp-test</jboss.home>
+				<skipITs>true</skipITs>
+				<skipTests>true</skipTests>
+			</properties>
 		</profile>
 		<profile>
 			<id>int-stage</id>
